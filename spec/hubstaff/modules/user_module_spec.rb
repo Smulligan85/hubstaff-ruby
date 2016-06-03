@@ -2,8 +2,8 @@ require 'spec_helper'
 
 class Hubstaff::Client
   describe User do
-    before :each do
-      @client = Hubstaff::Client.new
+    before(:each) do
+      @client = Hubstaff::Client.new(ENV['APP_EMAIL'], ENV['APP_PASSWORD'], ENV['AUTH_TOKEN'])
     end
 
     describe "#users" do

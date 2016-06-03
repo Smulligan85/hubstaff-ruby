@@ -14,6 +14,12 @@ class Hubstaff::Client
   include Activity
   include Screenshot
 
+  attr_reader :auth_token
+
+  def initialize(email, password, auth_token=nil)
+    @auth_token = auth_token || self.authenticate_client_and_return_auth_token(email, password)
+  end
+
   def authenticate_client_and_return_auth_token(email, password)
     @response ||= Faraday.post do |req|
       req.url "https://api.hubstaff.com/v1/auth"
