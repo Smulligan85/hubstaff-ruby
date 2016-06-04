@@ -3,10 +3,10 @@ require 'faraday'
 require 'json'
 
 class Hubstaff::Client
-  module Screenshot
+  module Note
 
-  def screenshots(start_time, end_time, orgs="", projects="", users="", offset=0)
-      @screenshot = connection.get("screenshots") do |req|
+    def notes(start_time, end_time, orgs="", projects="", users="", offset=0)
+      @notes = connection.get("notes") do |req|
         req.params['start_time'] = start_time
         req.params['stop_time'] = end_time
         req.params['organizations'] = orgs unless orgs.empty?
@@ -14,8 +14,12 @@ class Hubstaff::Client
         req.params['users'] = users unless users.empty?
         req.params['offset'] = offset
       end
-      @screenshot_json = JSON.parse(@screenshot.body)
-  end
+      @note_json = JSON.parse(@notes.body)
+    end
+
+    def find_note(note_id)
+      @note = get_note("notes/#{note_id}")
+    end
 
     private
 
@@ -28,5 +32,11 @@ class Hubstaff::Client
         req.adapter Faraday.default_adapter
       end
     end
+
+    def get_note(url)
+      JSON.parse(connection.get(url).body)
+    end
+
   end
 end
+

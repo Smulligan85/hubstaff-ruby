@@ -6,6 +6,7 @@ require 'hubstaff/modules/organization'
 require 'hubstaff/modules/project'
 require 'hubstaff/modules/activity'
 require 'hubstaff/modules/screenshot'
+require 'hubstaff/modules/note'
 
 class Hubstaff::Client
   include User
@@ -13,6 +14,7 @@ class Hubstaff::Client
   include Project
   include Activity
   include Screenshot
+  include Note
 
   attr_reader :auth_token
 
