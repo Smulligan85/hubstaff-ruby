@@ -3,7 +3,7 @@ require "hubstaff/client"
 
 require 'pry'
 require 'dotenv'
+Dotenv.load(".env")
 
 module Hubstaff
-  # Your code goes here...
 end
