@@ -1,15 +1,4 @@
-require 'pry'
-require 'faraday'
-require 'json'
-require 'hubstaff/modules/user.rb'
-require 'hubstaff/modules/organization'
-require 'hubstaff/modules/project'
-require 'hubstaff/modules/activity'
-require 'hubstaff/modules/screenshot'
-require 'hubstaff/modules/note'
-require 'hubstaff/modules/weekly'
-require 'hubstaff/modules/task'
-require 'hubstaff/modules/custom'
+Dir[File.join(__dir__, 'modules', '*.rb')].each {|file| require file }
 
 class Hubstaff::Client
   include User
@@ -21,7 +10,7 @@ class Hubstaff::Client
   include Weekly
   include Task
   include Custom
-  
+
   attr_reader :auth_token
 
   def initialize(email, password, auth_token=nil)
@@ -37,5 +26,19 @@ class Hubstaff::Client
       req.params['password'] = password
     end
     @auth_token = JSON.parse(@response.body)['user']['auth_token']
+  end
+
+  def connection
+    Faraday.new(:url => "https://api.hubstaff.com/v1/") do |req|
+      req.headers['Content-Type'] = 'application/json'
+      req.headers['User-Agent'] = "Hubstaff-Ruby v#{Hubstaff::VERSION}"
+      req.headers['Auth-Token'] = self.auth_token
+      req.headers['App-Token'] = ENV['APP_TOKEN']
+      req.adapter Faraday.default_adapter
+    end
+  end
+
+  def get_json(url)
+    JSON.parse(connection.get(url).body)
   end
 end

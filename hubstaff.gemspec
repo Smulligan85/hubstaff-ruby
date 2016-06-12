@@ -6,7 +6,7 @@ require 'hubstaff/version'
 Gem::Specification.new do |spec|
   spec.name          = "hubstaff-ruby"
   spec.version       = Hubstaff::VERSION
-  spec.authors       = ["Smulligan85"]
+  spec.authors       = ["Sean Mulligan"]
   spec.email         = ["sean.mulligan85@gmail.com"]
 
   spec.summary       = %q{Ruby API Wrapper for the Hubstaff API v1}
@@ -35,4 +35,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "faraday"
   spec.add_dependency "json"
+  spec.add_dependency "dotenv"
 end

@@ -1,6 +1,3 @@
-require 'faraday'
-require 'json'
-
 class Hubstaff::Client
   module User
 
@@ -14,7 +11,7 @@ class Hubstaff::Client
     end
 
     def find_user(user_id)
-      @user = get_user("users/#{user_id}")
+      @user = get_json("users/#{user_id}")
     end
 
     def find_user_orgs(user_id, offset=0)
@@ -29,22 +26,6 @@ class Hubstaff::Client
         req.params['offset'] = offset
       end
       @user_projects = JSON.parse(@projects.body)
-    end
-
-    private
-
-    def connection
-      Faraday.new(:url => "https://api.hubstaff.com/v1/") do |req|
-        req.headers['Content-Type'] = 'application/json'
-        req.headers['User-Agent'] = "Hubstaff-Ruby v#{Hubstaff::VERSION}"
-        req.headers['Auth-Token'] = self.auth_token
-        req.headers['App-Token'] = ENV['APP_TOKEN']
-        req.adapter Faraday.default_adapter
-      end
-    end
-
-    def get_user(url)
-      JSON.parse(connection.get(url).body)
     end
   end
 end

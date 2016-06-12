@@ -1,32 +1,16 @@
-require 'faraday'
-require 'json'
-
 class Hubstaff::Client
   module Activity
 
-    def activities(start_time, end_time, orgs="", projects="", users="", offset=0)
+    def activities(start_time, stop_time, options={})
       @activity = connection.get("activities") do |req|
         req.params['start_time'] = start_time
-        req.params['stop_time'] = end_time
-        req.params['organizations'] = orgs unless orgs.empty?
-        req.params['projects'] = projects unless projects.empty?
-        req.params['users'] = users unless users.empty?
-        req.params['offset'] = offset
+        req.params['stop_time'] = stop_time
+        req.params['organizations'] = options[:orgs] unless options[:orgs].nil?
+        req.params['projects'] = options[:projects] unless options[:projects].nil?
+        req.params['users'] = options[:users] unless options[:users].nil?
+        req.params['offset'] = options[:offset] unless options[:offset].nil?
       end
       @activity_json = JSON.parse(@activity.body)
     end
-
-    private
-
-    def connection
-      Faraday.new(:url => "https://api.hubstaff.com/v1/") do |req|
-        req.headers['Content-Type'] = 'application/json'
-        req.headers['User-Agent'] = "Hubstaff-Ruby v#{Hubstaff::VERSION}"
-        req.headers['Auth-Token'] = self.auth_token
-        req.headers['App-Token'] = ENV['APP_TOKEN']
-        req.adapter Faraday.default_adapter
-      end
-    end
-
   end
 end

@@ -1,8 +1,8 @@
 require "hubstaff/version"
 require "hubstaff/client"
-
-require 'pry'
 require 'dotenv'
+require 'faraday'
+require 'json'
 
 module Hubstaff
   # Your code goes here...
