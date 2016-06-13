@@ -90,7 +90,7 @@ json_data = client.users(true, true)
 
 ### Find a specific user
 
-Users can be looked up by their ``subscriber_id``.
+Users can be looked up by their ``user_id``.
 
 ```ruby
 json_data = client.find_user(61188)
