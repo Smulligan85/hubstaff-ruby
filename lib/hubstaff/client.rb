@@ -26,6 +26,7 @@ class Hubstaff::Client
       req.params['password'] = password
     end
     auth_token = JSON.parse(response.body)['user']['auth_token']
+    auth_token
   end
 
   def connection
