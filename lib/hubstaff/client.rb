@@ -18,13 +18,19 @@ class Hubstaff::Client
   end
 
   def authenticate(email, password)
-    response ||= Faraday.post do |req|
-      req.url "https://api.hubstaff.com/v1/auth"
-      req.headers['Content-Type'] = 'application/json'
+    response ||= auth_conn.post do |req|
       req.headers['App-Token'] = self.app_token
       req.body = { email: email, password: password }
     end
     self.auth_token = JSON.parse(response.body)['user']['auth_token']
+  end
+
+  def auth_conn
+    Faraday.new(:url => "https://api.hubstaff.com/v1/auth") do |req|
+      req.request :multipart
+      req.request :url_encoded
+      req.adapter Faraday.default_adapter
+    end
   end
 
   def connection

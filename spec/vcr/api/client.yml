@@ -2,17 +2,17 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.hubstaff.com/v1/auth?email=rkcudjoe%40hookengine.com&password=hookdev001
+    uri: https://api.hubstaff.com/v1/auth
     body:
-      encoding: US-ASCII
-      string: ''
+      encoding: UTF-8
+      string: email=rkcudjoe%40hookengine.com&password=hookdev001
     headers:
       User-Agent:
       - Faraday v0.9.2
-      Content-Type:
-      - application/json
       App-Token:
       - 1u6rQ6kuB46U8kSYAXRPDaBvvAiB7GPMMxZVLii79KQ
+      Content-Type:
+      - application/x-www-form-urlencoded
   response:
     status:
       code: 200
@@ -29,28 +29,28 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       date:
-      - Wed, 03 Aug 2016 14:04:41 GMT
+      - Fri, 05 Aug 2016 15:05:39 GMT
       vary:
       - Origin
       strict-transport-security:
       - max-age=31536000
       x-request-id:
-      - 933e5b6e-c0de-4674-9eef-d82d2f5b3b3c
+      - c9a66f93-9486-4245-95d0-288efe592222
       etag:
       - W/"4e97488ea5a33bb7d4700432f9da12df"
       x-runtime:
-      - '0.404189'
+      - '0.303640'
       x-rack-cache:
       - invalidate, pass
       x-powered-by:
-      - Phusion Passenger 5.0.25
+      - Phusion Passenger 5.0.30
       server:
-      - nginx/1.8.1 + Phusion Passenger 5.0.25
+      - nginx/1.10.1 + Phusion Passenger 5.0.30
       via:
       - 1.1 vegur
     body:
       encoding: UTF-8
       string: '{"user":{"id":61188,"name":"Raymond Cudjoe","last_activity":"2016-05-24T01:25:21Z","auth_token":"5WZ1SCto37HBhH-AR1jn0kC3FXROO4b39CREMSyt_1U"}}'
     http_version: 
-  recorded_at: Wed, 03 Aug 2016 14:04:44 GMT
+  recorded_at: Fri, 05 Aug 2016 15:05:39 GMT
 recorded_with: VCR 3.0.3
